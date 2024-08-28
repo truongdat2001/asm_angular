@@ -1,0 +1,34 @@
+<div class="container mt-3">
+    <a class=" btn bg-primary btn-primary text-black text-decoration-none fs-3 px-5" routerLink="/du-an/them"
+        href="">Thêm Dự Án</a>
+    <h1 class="text-center">DANH SÁCH DỰ ÁN</h1>
+    <table class="table table-bordered border text-center border-black">
+        <tr>
+            <th>STT</th>
+            <th>Tên dự án</th>
+            <th>Ngày bắt đầu</th>
+            <th>Tiền</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let duan of list_duan, let i = index">
+            <td>{{i+1}}</td>
+            <td>{{duan.ten_du_an}}</td>
+            <td>{{duan.ngay_bat_dau | date : "yyyy/MM/dd"}}</td>
+            <td>{{duan.tien | currency: " ":'symbol':"1.0-0"}} VNĐ</td>
+            <td>
+                <!-- <a class="btn bg-primary btn-primary" href="">Sửa</a> -->
+                <button type="button" routerLink="/du-an/sua/{{duan.id}}" class="btn bg-success btn-success">
+                    <fa-icon [icon]="faWrench"></fa-icon>
+                </button>
+                <button type="button" (click)="xoaDuAn(duan.id)" class="btn bg-danger btn-danger">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div *ngIf="showPopup" class="popup-container">
+        <div class="popup-content">
+            <p>{{thongbao}}</p>
+        </div>
+    </div>
+</div>

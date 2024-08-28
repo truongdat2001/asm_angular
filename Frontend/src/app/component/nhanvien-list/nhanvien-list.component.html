@@ -1,0 +1,37 @@
+<div class="container mt-3">
+    <h1 class="text-center">DANH SÁCH THÀNH VIÊN</h1>
+    <table class="table table-bordered border text-center border-black">
+        <tr>
+            <th>STT</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Ngày sinh</th>
+            <th>Giới tính</th>
+            <th>Khu vực</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let nv of list_nv, let i = index">
+            <td>{{i + 1}}</td>
+            <td>(Id{{nv.id}}) {{nv.hovaten}}</td>
+            <td>{{nv.email}}</td>
+            <td>{{nv.ngay_sinh | date : "dd/MM/yyyy"}}</td>
+            <td>{{nv.gioi_tinh}}</td>
+            <td>{{nv.khu_vuc}}</td>
+            <td>
+                <!-- <a class="btn bg-primary btn-primary" href="">Sửa</a> -->
+                <button type="button" routerLink="/nhan-vien/sua/{{nv.id}}" class="btn bg-success btn-success">
+                    <fa-icon [icon]="faWrench"></fa-icon>
+                </button>
+                <button type="button" (click)="xoaNhanVien(nv.id)" class="btn bg-danger btn-danger">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <!-- Popup thông báo -->
+    <div *ngIf="showPopup" class="popup-container">
+        <div class="popup-content">
+            <p>{{thongbao}}</p>
+        </div>
+    </div>
+</div>

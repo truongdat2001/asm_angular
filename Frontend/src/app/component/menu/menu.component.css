@@ -1,0 +1,37 @@
+.quan-ly-du-an>h3 {
+    color: white;
+    text-align: center;
+    font-weight:900;
+    font-size: 2rem;
+}
+
+.sidebar ul {
+    margin-top: 20px;
+}
+
+.sidebar span {
+    padding-left: 10px;
+    opacity: 0.7;
+}
+
+.sidebar .list-group .list-group-item {
+    color: white;
+    border: none;
+    background-color: #222d31;
+    margin-bottom: 15px;
+}
+
+.sidebar .list-group .list-group-item>a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.sidebar .list-group .list-group-item:hover {
+    cursor: pointer;
+    background-color: #367fa8;
+}
+
+.sidebar .list-group .list-group-item.active {
+    background-color: #161d20;
+}

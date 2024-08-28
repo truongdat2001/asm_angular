@@ -1,0 +1,52 @@
+<div class="container fs-3 mt-3">
+    <a class="btn bg-primary btn-primary text-black text-decoration-none fs-3 px-5" routerLink="/task/them">Thêm
+        task</a>
+    <h1 class="text-center">DANH SÁCH TASK</h1>
+    <div *ngFor="let task of list_task; let i = index" class="mt-2">
+        <div class="ms-1">
+            <b class="text-decoration-underline">{{ i + 1 }}: {{ task.ten_task }}</b> <br>
+            <p><span class="fw-bold mx-3">Mô tả:</span> {{ task.mo_ta }}</p>
+        </div>
+
+        <ng-container *ngFor="let duan of list_duan">
+            <ng-container *ngIf="task.du_an_id === duan.id">
+                <div class="mb-0 px-3 pb-2 border-bottom border-primary d-flex">
+                    <ng-container *ngFor="let nhanvien of list_nhanvien">
+                        <div *ngIf="task.nhan_vien_id === nhanvien.id" class="col-5">
+                            <span class="fw-bold">Dự án:</span> {{
+                            duan.ten_du_an }} <br>
+                            <span class="fw-bold">Chịu trách nhiệm:</span> {{
+                            nhanvien.hovaten }}
+                        </div>
+                    </ng-container>
+
+                    <div [ngSwitch]="task.trang_thai" class="col-5">
+                        <p *ngSwitchCase="1"><span class="fw-bold">Trạng
+                                thái:</span> Chờ xác nhận</p>
+                        <p *ngSwitchCase="2"><span class="fw-bold">Trạng
+                                thái:</span> Đang tiến hành</p>
+                        <p *ngSwitchCase="3"><span class="fw-bold">Trạng
+                                thái:</span> Đã hoàn thành</p>
+                        <p *ngSwitchDefault><span class="fw-bold">Trạng
+                                thái:</span> Không xác định</p>
+                    </div>
+
+                    <div class="col-2">
+                        <button type="button" routerLink="/task/sua/{{ task.id }}" class="btn bg-success btn-success">
+                            <fa-icon [icon]="faWrench"></fa-icon>
+                        </button>
+                        <button (click)="xoaTask(task.id)" type="button" class="btn bg-danger btn-danger">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div *ngIf="showPopup" class="popup-container">
+        <div class="popup-content">
+            <p>{{thongbao}}</p>
+        </div>
+    </div>
+</div>

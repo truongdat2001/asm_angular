@@ -1,0 +1,99 @@
+<div class="container">
+    <form action="" #frm1="ngForm" class="col-10 m-auto w-50 border border-success px-3 mt-2" [formGroup]="formAddTask"
+        (ngSubmit)="xuly(frm1.value)">
+        <h1 class="text-center fw-bold">Thêm Task</h1>
+        <div class="mb-3">
+            <label for="ten_task">Tên task: </label>
+            <input type="text" required name="ten_task" id="ten_task" formControlName="ten_task"
+                class="form-control fs-5">
+            <div class="text-danger"
+                *ngIf="formAddTask.controls['ten_task'].dirty && formAddTask.controls['ten_task'].invalid">
+                <span *ngIf="formAddTask.controls['ten_task'].errors?.['required']">Tên task không được để
+                    trống</span>
+                <span *ngIf="formAddTask.controls['ten_task'].errors?.['minlength']">Tên task tối thiểu 3 ký tự</span>
+                <span *ngIf="formAddTask.controls['ten_task'].errors?.['maxlength']">Tên task tối đa 32 ký tự</span>
+            </div>
+        </div>
+
+        <div class="mb-3 w-50">
+            <label for="du_an_id">Dự án: </label>
+            <select id="du_an_id" name="du_an_id" formControlName="du_an_id" class="form-control fs-5">
+                <option class="fs-5" value="">--Chọn dự án--</option>
+                <option class="p-2 fs-5" *ngFor="let duan of listDuAn" value="{{duan.id}}">
+                    {{duan.ten_du_an}}
+                </option>
+            </select>
+            <div class="text-danger"
+                *ngIf="formAddTask.controls['du_an_id'].dirty && formAddTask.controls['du_an_id'].invalid">
+                <span *ngIf="formAddTask.controls['du_an_id'].errors?.['required']">Phải chọn dự án</span>
+            </div>
+        </div>
+
+        <div class="mb-3 w-50">
+            <label for="nhan_vien_id">Thành viên thực hiện: </label>
+            <select id="nhan_vien_id" name="nhan_vien_id" formControlName="nhan_vien_id" class="form-control fs-5">
+                <option class="fs-5" value="">--Chọn thành viên--</option>
+                <option class="p-2 fs-5" *ngFor="let thanh_vien of listNhanVien" value="{{thanh_vien.id}}">
+                    {{thanh_vien.hovaten}}
+                </option>
+            </select>
+            <div class="text-danger"
+                *ngIf="formAddTask.controls['nhan_vien_id'].dirty && formAddTask.controls['nhan_vien_id'].invalid">
+                <span *ngIf="formAddTask.controls['nhan_vien_id'].errors?.['required']">Phải chọn nhân viên</span>
+            </div>
+        </div>
+
+        <div class="mb-3 w-75">
+            <label for="trang_thai">Trạng thái: </label>
+            <div class=" d-flex align-items-center justify-content-between w-100">
+                <div class="d-flex">
+                    <input id="cho_thuc_hien" type="radio" formControlName="trang_thai" [value]="1">
+                    <p class="pt-3 fs-5">Chờ xác nhận</p>
+                </div>
+                <div class="d-flex">
+                    <input ngSwitch="2" id="dang_tien_hanh" formControlName="trang_thai" type="radio" [value]="2">
+                    <p class="pt-3 fs-5">Đang tiến hành</p>
+                </div>
+                <div class="d-flex">
+                    <input id="da_hoan_thanh" type="radio" formControlName="trang_thai" [value]="3">
+                    <p class="pt-3 fs-5">Đã hoàn thành</p>
+                </div>
+            </div>
+            <div class="text-danger"
+                *ngIf="formAddTask.controls['trang_thai'].dirty && formAddTask.controls['trang_thai'].invalid">
+                <span *ngIf="formAddTask.controls['trang_thai'].errors?.['required']">Phải chọn trạng thái</span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="mo_ta">Mô tả </label>
+            <textarea type="text" name="mo_ta" id="mo_ta" formControlName="mo_ta" class="form-control fs-5"></textarea>
+            <div class="text-danger"
+                *ngIf="formAddTask.controls['mo_ta'].dirty && formAddTask.controls['mo_ta'].invalid">
+                <span *ngIf="formAddTask.controls['mo_ta'].errors?.['required']">Mô tả không được để
+                    trống</span>
+                <span *ngIf="formAddTask.controls['mo_ta'].errors?.['minlength']">Mô tả tối thiểu 3 ký tự</span>
+                <span *ngIf="formAddTask.controls['mo_ta'].errors?.['maxlength']">Mô tả tối đa 500 ký tự</span>
+            </div>
+        </div>
+
+        <div class="mb-3 d-flex justify-content-center">
+            <button [disabled]="formAddTask.invalid" class="btn btn-success fs-2 px-5">Thêm</button>
+        </div>
+        <!-- <div class="d-flex align-items-center justify-content-center">
+            <span class="text-danger text-center fw-bold">{{thongbao}}</span>
+        </div> -->
+    </form>
+
+    <!-- Popup thông báo -->
+    <!-- <div *ngIf="showPopup" class="popup">
+        <div class="popup-content">
+            <p>Thêm thành công!</p>
+        </div>
+    </div> -->
+    <div *ngIf="showPopup" class="popup-container">
+        <div class="popup-content">
+            <p>{{thongbao}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="container">
+    <form action="" #frm1="ngForm" class="col-10 m-auto w-50 border border-success px-3 mt-2" [formGroup]="formAddDuAn"
+        (ngSubmit)="xuly(frm1.value)">
+        <h1 class="text-center fw-bold">Thêm Dự Án</h1>
+        <div class="mb-3">
+            <label for="ten_du_an">Tên dự án: </label>
+            <input type="text" required name="ten_du_an" id="ten_du_an" formControlName="ten_du_an"
+                class="form-control fs-5">
+            <div class="text-danger"
+                *ngIf="formAddDuAn.controls['ten_du_an'].dirty && formAddDuAn.controls['ten_du_an'].invalid">
+                <span *ngIf="formAddDuAn.controls['ten_du_an'].errors?.['required']">Tên dự án không được để
+                    trống</span>
+                <span *ngIf="formAddDuAn.controls['ten_du_an'].errors?.['minlength']">Tên dự án tối thiểu 3 ký tự</span>
+                <span *ngIf="formAddDuAn.controls['ten_du_an'].errors?.['maxlength']">Tên dự án tối đa 62 ký tự</span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="ngay_bat_dau">Ngày bắt đầu: </label>
+            <input type="date" name="ngay_bat_dau" id="ngay_bat_dau" formControlName="ngay_bat_dau"
+                class="form-control fs-5">
+            <div class="text-danger"
+                *ngIf="formAddDuAn.controls['ngay_bat_dau'].dirty && formAddDuAn.controls['ngay_bat_dau'].invalid">
+                <span *ngIf="formAddDuAn.controls['ngay_bat_dau'].errors?.['required']">Ngày bắt đầu không được để
+                    trống</span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="tien">Tiền: </label>
+            <input type="number" name="tien" id="tien" formControlName="tien" class="form-control fs-5">
+            <div class="text-danger" *ngIf="formAddDuAn.controls['tien'].dirty && formAddDuAn.controls['tien'].invalid">
+                <span *ngIf="formAddDuAn.controls['tien'].errors?.['required']">Tiền không được để trống</span>
+            </div>
+        </div>
+
+        <div class="mb-3 w-50">
+            <label for="leader">Leader: </label>
+            <select id="leader" name="leader" formControlName="leader" class="form-control fs-5">
+                <option class="fs-5" value="">--Chọn Leader--</option>
+                <option class="fs-5" *ngFor="let leader of listNhanvien" value="{{leader.id}}">
+                    {{leader.hovaten}}
+                </option>
+                <div class="text-danger"
+                    *ngIf="formAddDuAn.controls['tien'].dirty && formAddDuAn.controls['tien'].invalid">
+                    <span *ngIf="formAddDuAn.controls['tien'].errors?.['required']">Tiền không được để trống</span>
+                </div>
+            </select>
+            <div class="text-danger"
+                *ngIf="formAddDuAn.controls['leader'].dirty && formAddDuAn.controls['leader'].invalid">
+                <span *ngIf="formAddDuAn.controls['leader'].errors?.['required']">Tiền không được để trống</span>
+            </div>
+        </div>
+        <div class="mb-3 w-50">
+            <label for="thanh_vien">Thành viên: </label>
+            <select id="thanh_vien" name="thanh_vien" formControlName="thanh_vien" multiple size="4"
+                class="form-control fs-5">
+                <option class="p-2 fs-5" *ngFor="let thanh_vien of listNhanvien" value="{{thanh_vien.id}}">
+                    {{thanh_vien.hovaten}}
+                </option>
+            </select>
+            <div class="text-danger"
+                *ngIf="formAddDuAn.controls['thanh_vien'].dirty && formAddDuAn.controls['thanh_vien'].invalid">
+                <span *ngIf="formAddDuAn.controls['thanh_vien'].errors?.['required']">Tiền không được để trống</span>
+            </div>
+        </div>
+        <div class="mb-3 d-flex justify-content-center">
+            <button [disabled]="formAddDuAn.invalid" class="btn btn-success fs-2 px-5">Thêm</button>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <span class="text-danger text-center fw-bold">{{thongbao}}</span>
+        </div>
+    </form>
+
+    <!-- Popup thông báo -->
+    <!-- <div *ngIf="showPopup" class="popup">
+        <div class="popup-content">
+            <p>Thêm thành công!</p>
+        </div>
+    </div> -->
+    <div *ngIf="showPopup" class="popup-container">
+        <div class="popup-content">
+            <p>{{thongbao}}</p>
+        </div>
+    </div>
+</div>

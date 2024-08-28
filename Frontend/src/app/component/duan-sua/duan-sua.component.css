@@ -1,0 +1,50 @@
+.popup-container{
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.popup-container .popup-content {
+    background: rgb(22, 255, 1);
+    width: 20%;
+    padding: 1rem;
+    max-width: 500px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.popup-container ::after {
+    content: "";
+    background-color: black;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    animation: chuyendong 4s;
+}
+
+.popup-container .popup-content p {
+    text-align: center;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+@keyframes chuyendong {
+    0%{
+        width: 100%;
+    }
+    100% {
+        width: 0%;
+    }
+}
+
+button:disabled {
+    cursor: no-drop !important;
+    pointer-events:all;
+}

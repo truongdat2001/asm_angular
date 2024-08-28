@@ -1,0 +1,68 @@
+<div class="container">
+    <form action="" #frm1="ngForm" class="col-10 m-auto w-50 border border-success px-3 mt-2" (ngSubmit)="xuly()">
+        <h1 class="text-center fw-bold">Sửa nhân viên</h1>
+
+        <div class="mb-3">
+            <label for="hovaten">Họ và tên: </label>
+            <input type="text" required name="hovaten" id="hovaten" [(ngModel)]="oneNhanVien.hovaten"
+                class="form-control fs-5" #HoVaTen="ngModel" minlength="3" maxlength="36">
+            <div *ngIf="HoVaTen.invalid && (HoVaTen.dirty || HoVaTen.touched)" class="text-danger">
+                <div *ngIf="HoVaTen.errors?.['required']">Họ và tên không được để trống</div>
+                <div *ngIf="HoVaTen.errors?.['minlength']">Họ và tên tối thiểu 3 ký tự</div>
+                <div *ngIf="HoVaTen.errors?.['maxlength']">Họ và tên tối đa 36 ký tự</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email">Email: </label>
+            <input type="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" id="email"
+                [(ngModel)]="oneNhanVien.email" class="form-control fs-5" #email="ngModel" required>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                <div *ngIf="email.errors?.['required']">Email không được để trống</div>
+                <div *ngIf="email.errors?.['pattern']">Email không hợp lệ</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="ngay_sinh">Ngày sinh: </label>
+            <input type="date" name="ngay_sinh" id="ngay_sinh" [ngModel]="oneNhanVien.ngay_sinh | date:'yyyy-MM-dd'"
+                (ngModelChange)="oneNhanVien.ngay_sinh=$event" class="form-control fs-5" #ngaySinh="ngModel" required>
+            <div *ngIf="ngaySinh.invalid && (ngaySinh.dirty || ngaySinh.touched)" class="text-danger">
+                <div *ngIf="ngaySinh.errors?.['required']">Ngày sinh không được để trống</div>
+            </div>
+        </div>
+
+        <div class="mb-3 w-50">
+            <label for="gioi_tinh">Giới tính: </label>
+            <select id="gioi_tinh" name="gioi_tinh" [(ngModel)]="oneNhanVien.gioi_tinh" class="form-control fs-5"
+                #gioiTinh="ngModel" required>
+                <option class="fs-5" value="Nam">Nam</option>
+                <option class="fs-5" value="Nữ">Nữ</option>
+            </select>
+        </div>
+
+        <div class="mb-3 w-50">
+            <label for="khu_vuc">Khu vực: </label>
+            <select id="khu_vuc" name="khu_vuc" [(ngModel)]="oneNhanVien.khu_vuc" class="form-control fs-5"
+                #khuVuc="ngModel" required>
+                <option class="fs-5" value="Miền Bắc">Miền Bắc</option>
+                <option class="fs-5" value="Miền Trung">Miền Trung</option>
+                <option class="fs-5" value="Miền Nam">Miền Nam</option>
+            </select>
+        </div>
+
+        <div class="mb-3 d-flex justify-content-center">
+            <button class="btn btn-success fs-2 px-5" [disabled]="frm1.invalid">Sửa</button>
+        </div>
+        <!-- <div class="d-flex align-items-center justify-content-center">
+            <span class="text-danger text-center fw-bold">{{thongbao}}</span>
+        </div> -->
+    </form>
+
+    <!-- Popup thông báo -->
+    <div *ngIf="showPopup" class="popup-container">
+        <div class="popup-content">
+            <p>{{thongbao}}</p>
+        </div>
+    </div>
+</div>
